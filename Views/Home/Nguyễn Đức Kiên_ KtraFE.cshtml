@@ -1,0 +1,428 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Home - Product List</title>
+    <!-- Font Awesome 5.15.4 CDN đúng yêu cầu -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background: #fff;
+            padding: 15px 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #b86b9c;
+        }
+
+        .search-bar {
+            flex: 0 1 400px;
+            display: flex;
+        }
+
+            .search-bar input {
+                width: 100%;
+                padding: 10px 15px;
+                border: 1px solid #ddd;
+                border-radius: 4px 0 0 4px;
+                outline: none;
+            }
+
+            .search-bar button {
+                padding: 10px 20px;
+                border: none;
+                background: #b86b9c;
+                color: #fff;
+                border-radius: 0 4px 4px 0;
+                cursor: pointer;
+            }
+
+        .header-icons a {
+            margin-left: 20px;
+            font-size: 20px;
+            color: #555;
+            text-decoration: none;
+        }
+
+            .header-icons a:hover {
+                color: #b86b9c;
+            }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+            .filter-bar select, .filter-bar button {
+                padding: 8px 12px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+            }
+
+            .filter-bar button {
+                background: #b86b9c;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+            }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+            .product-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .product-img {
+            height: 200px;
+            background: #f9f9f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #b86b9c;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-name {
+            font-size: 15px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .product-rating {
+            color: #ffc107;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            font-weight: bold;
+            color: #b86b9c;
+            font-size: 17px;
+        }
+
+        .old-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 13px;
+            margin-left: 8px;
+        }
+
+        .product-actions {
+            margin-top: 12px;
+            display: flex;
+            gap: 8px;
+        }
+
+            .product-actions button {
+                flex: 1;
+                padding: 8px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+            }
+
+        .btn-cart {
+            background: #b86b9c;
+            color: #fff;
+        }
+
+        .btn-wish {
+            background: #f0f0f0;
+            color: #555;
+        }
+
+        footer {
+            background: #222;
+            color: #fff;
+            padding: 40px 20px;
+            margin-top: 50px;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 15px;
+            color: #b86b9c;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+            .footer-col ul li {
+                margin-bottom: 8px;
+            }
+
+                .footer-col ul li a {
+                    color: #aaa;
+                    text-decoration: none;
+                }
+
+                    .footer-col ul li a:hover {
+                        color: #fff;
+                    }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <i class="fas fa-shopping-bag"></i> ShopStyle
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Tìm kiếm sản phẩm...">
+            <button type="submit"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="header-icons">
+            <a href="#"><i class="fas fa-heart"></i></a>
+            <a href="#"><i class="fas fa-shopping-cart"></i></a>
+            <a href="#"><i class="fas fa-user"></i></a>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>Danh sách sản phẩm</h2>
+
+        <div class="filter-bar">
+            <select>
+                <option>Sắp xếp theo</option>
+                <option>Giá tăng dần</option>
+                <option>Giá giảm dần</option>
+            </select>
+            <select>
+                <option>Danh mục</option>
+                <option>Túi xách</option>
+                <option>Phụ kiện</option>
+            </select>
+            <button><i class="fas fa-filter"></i> Lọc</button>
+        </div>
+
+        <div class="products-grid">
+            <!-- Sản phẩm 1 -->
+            <div class="product-card">
+                <div class="product-img"><i class="fas fa-shopping-bag"></i></div>
+                <div class="product-info">
+                    <h3 class="product-name">Túi xách thời trang nữ</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div>
+                        <span class="product-price">299.000đ</span>
+                        <span class="old-price">350.000đ</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-cart"><i class="fas fa-shopping-cart"></i> Thêm</button>
+                        <button class="btn-wish"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sản phẩm 2 -->
+            <div class="product-card">
+                <div class="product-img"><i class="fas fa-briefcase"></i></div>
+                <div class="product-info">
+                    <h3 class="product-name">Túi công sở cao cấp</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <div>
+                        <span class="product-price">450.000đ</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-cart"><i class="fas fa-shopping-cart"></i> Thêm</button>
+                        <button class="btn-wish"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sản phẩm 3 -->
+            <div class="product-card">
+                <div class="product-img"><i class="fas fa-suitcase"></i></div>
+                <div class="product-info">
+                    <h3 class="product-name">Túi du lịch tiện lợi</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div>
+                        <span class="product-price">399.000đ</span>
+                        <span class="old-price">500.000đ</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-cart"><i class="fas fa-shopping-cart"></i> Thêm</button>
+                        <button class="btn-wish"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sản phẩm 4 -->
+            <div class="product-card">
+                <div class="product-img"><i class="fas fa-ellipsis-h"></i></div>
+                <div class="product-info">
+                    <h3 class="product-name">Túi đeo chéo hiện đại</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <div>
+                        <span class="product-price">199.000đ</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-cart"><i class="fas fa-shopping-cart"></i> Thêm</button>
+                        <button class="btn-wish"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thêm sản phẩm tương tự ở đây -->
+            <div class="product-card">
+                <div class="product-img"><i class="fas fa-gem"></i></div>
+                <div class="product-info">
+                    <h3 class="product-name">Túi da cao cấp</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div>
+                        <span class="product-price">699.000đ</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-cart"><i class="fas fa-shopping-cart"></i> Thêm</button>
+                        <button class="btn-wish"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img"><i class="fas fa-portrait"></i></div>
+                <div class="product-info">
+                    <h3 class="product-name">Túi xách mini xinh</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <div>
+                        <span class="product-price">159.000đ</span>
+                        <span class="old-price">200.000đ</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-cart"><i class="fas fa-shopping-cart"></i> Thêm</button>
+                        <button class="btn-wish"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Về chúng tôi</h4>
+                <ul>
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Tuyển dụng</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Hỗ trợ</h4>
+                <ul>
+                    <li><a href="#">Chính sách đổi trả</a></li>
+                    <li><a href="#">Hướng dẫn mua hàng</a></li>
+                    <li><a href="#">Câu hỏi thường gặp</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Liên kết</h4>
+                <ul>
+                    <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li><a href="#"><i class="fab fa-youtube"></i> YouTube</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Thông tin</h4>
+                <ul>
+                    <li><a href="#">Địa chỉ: TP.HCM</a></li>
+                    <li><a href="#">Hotline: 0123456789</a></li>
+                    <li><a href="#">Email: abc@gmail.com</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

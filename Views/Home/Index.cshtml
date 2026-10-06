@@ -1,0 +1,400 @@
+﻿@{
+    ViewData["Title"] = "Kết quả tìm kiếm";
+}
+
+<div class="page-wrap">
+    <aside class="sidebar">
+        <div class="filter-section">
+            <h3>Ý tưởng mua sắm phổ biến</h3>
+            <ul class="filter-list">
+                <li><a href="#">Túi xách nữ</a></li>
+                <li><a href="#">Túi xách nam</a></li>
+                <li><a href="#">Balo & Du lịch</a></li>
+                <li><a href="#">Xem thêm</a></li>
+            </ul>
+        </div>
+
+        <div class="filter-section">
+            <h3>Đánh giá của khách hàng</h3>
+            <div class="rating-filter">
+                <label><input type="checkbox" /> ⭐⭐⭐⭐ & lên</label>
+                <label><input type="checkbox" /> ⭐⭐⭐ & lên</label>
+                <label><input type="checkbox" /> ⭐⭐ & lên</label>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h3>Giá</h3>
+            <div class="price-slider-wrap">
+                <div class="slider-labels">
+                    <span id="minPriceLabel">0đ</span>
+                    <span id="maxPriceLabel">1.000.000đ</span>
+                </div>
+                <input type="range" id="priceMin" min="0" max="1000000" step="50000" value="0" oninput="updatePriceSlider()" />
+                <input type="range" id="priceMax" min="0" max="1000000" step="50000" value="1000000" oninput="updatePriceSlider()" />
+                <button class="apply-btn" onclick="applyPriceFilter()">Áp dụng</button>
+            </div>
+            <ul class="price-filter">
+                <li><label><input type="checkbox" onchange="locGia(0,300000)" /> Dưới 300.000đ</label></li>
+                <li><label><input type="checkbox" onchange="locGia(300000,500000)" /> 300.000đ - 500.000đ</label></li>
+                <li><label><input type="checkbox" onchange="locGia(500000,700000)" /> 500.000đ - 700.000đ</label></li>
+                <li><label><input type="checkbox" onchange="locGia(700000,1000000)" /> Trên 700.000đ</label></li>
+                <li class="all-option"><label><input type="checkbox" checked onchange="hienTatCa()" /> Tất cả</label></li>
+            </ul>
+        </div>
+
+        <div class="filter-section">
+            <h3>Danh mục</h3>
+            <ul class="filter-list">
+                <li><a href="#">Túi xách nữ</a></li>
+                <li><a href="#">Túi xách nam</a></li>
+                <li><a href="#">Balo & Túi xách du lịch</a></li>
+                <li><a href="#">Phụ kiện & Đồ da</a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <main class="results">
+        <div class="results-head">
+            <p id="resultCount">1–10 trong tổng số 10 kết quả</p>
+            <div class="sort-box">
+                <label>Sắp xếp theo:</label>
+                <select id="sortSelect" onchange="sortProducts()">
+                    <option selected>Nổi bật</option>
+                    <option value="price-asc">Giá: Thấp → Cao</option>
+                    <option value="price-desc">Giá: Cao → Thấp</option>
+                    <option value="rating">Đánh giá cao</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="products-grid" id="productGrid">
+
+            <!-- SP 1: Túi xách nữ da xanh dương -->
+            <div class="product-item" data-price="299000" data-rating="4">
+                <img src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=300&h=300&fit=crop" alt="Túi xách nữ da cao cấp" />
+                <div class="item-info">
+                    <h4 onclick="showDetail(1)">Túi xách nữ da tổng hợp kiểu dáng thanh lịch giá rẻ</h4>
+                    <div class="stars">⭐⭐⭐⭐☆ 2.548</div>
+                    <p class="price"><strong>299.000đ</strong> <del>350.000đ</del></p>
+                    <p class="ship">Giao hàng miễn phí <span>Thứ Hai, 13/10</span></p>
+                    <div class="prod-buttons">
+                        <button class="add-cart" onclick="addToCart(1)">Thêm vào giỏ hàng</button>
+                        <button class="detail-btn" onclick="showDetail(1)">Chi tiết</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SP 2: Túi xách công sở nam da thật -->
+            <div class="product-item" data-price="450000" data-rating="4">
+                <img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=300&h=300&fit=crop" alt="Túi xách công sở nam da thật" />
+                <div class="item-info">
+                    <h4 onclick="showDetail(2)">Túi xách công sở nam da thật đựng máy tính 15.6 inch</h4>
+                    <div class="stars">⭐⭐⭐⭐☆ 1.820</div>
+                    <p class="price"><strong>450.000đ</strong></p>
+                    <p class="ship">Giao hàng miễn phí <span>Thứ Hai, 13/10</span></p>
+                    <div class="prod-buttons">
+                        <button class="add-cart" onclick="addToCart(2)">Thêm vào giỏ hàng</button>
+                        <button class="detail-btn" onclick="showDetail(2)">Chi tiết</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SP 3: Balo du lịch chống sốc -->
+            <div class="product-item" data-price="399000" data-rating="5">
+                <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=300&fit=crop" alt="Balo du lịch chống sốc" />
+                <div class="item-info">
+                    <h4 onclick="showDetail(3)">Balo du lịch chống sốc nhiều ngăn thông minh</h4>
+                    <div class="stars">⭐⭐⭐⭐⭐ 5.230</div>
+                    <p class="price"><strong>399.000đ</strong> <del>500.000đ</del></p>
+                    <p class="ship">Giao hàng miễn phí <span>Thứ Ba, 14/10</span></p>
+                    <div class="prod-buttons">
+                        <button class="add-cart" onclick="addToCart(3)">Thêm vào giỏ hàng</button>
+                        <button class="detail-btn" onclick="showDetail(3)">Chi tiết</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SP 4: Túi xách nữ cao cấp da bò -->
+            <div class="product-item" data-price="699000" data-rating="5">
+                <img src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=300&h=300&fit=crop" alt="Túi xách nữ cao cấp da bò" />
+                <div class="item-info">
+                    <h4 onclick="showDetail(4)">Túi xách nữ cao cấp da bò nhập khẩu khóa kim loại sang trọng</h4>
+                    <div class="stars">⭐⭐⭐⭐⭐ 856</div>
+                    <p class="price"><strong>699.000đ</strong></p>
+                    <p class="ship">Giao hàng miễn phí <span>Thứ Hai, 13/10</span></p>
+                    <div class="prod-buttons">
+                        <button class="add-cart" onclick="addToCart(4)">Thêm vào giỏ hàng</button>
+                        <button class="detail-btn" onclick="showDetail(4)">Chi tiết</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SP 5: Túi xách nữ nhỏ gọn Hàn Quốc -->
+            <div class="product-item" data-price="199000" data-rating="4">
+                <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&h=300&fit=crop" alt="Túi xách nữ nhỏ gọn Hàn Quốc" />
+                <div class="item-info">
+                    <h4 onclick="showDetail(5)">Túi xách nữ nhỏ gọn thời trang phong cách Hàn Quốc</h4>
+                    <div class="stars">⭐⭐⭐⭐☆ 3.120</div>
+                    <p class="price"><strong>199.000đ</strong> <del>250.000đ</del></p>
+                    <p class="ship">Giao hàng miễn phí <span>Thứ Ba, 14/10</span></p>
+                    <div class="prod-buttons">
+                        <button class="add-cart" onclick="addToCart(5)">Thêm vào giỏ hàng</button>
+                        <button class="detail-btn" onclick="showDetail(5)">Chi tiết</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SP 6: Túi xách da tổng hợp màu cam -->
+            <div class="product-item" data-price="350000" data-rating="4">
+                <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=300&h=300&fit=crop" alt="Túi xách da tổng hợp màu cam" />
+                <div class="item-info">
+                    <h4 onclick="showDetail(6)">Túi xách da tổng hợp nhiều màu sắc trẻ trung năng động</h4>
+                    <div class="stars">⭐⭐⭐⭐☆ 2.450</div>
+                    <p class="price"><strong>350.000đ</strong></p>
+                    <p class="ship">Giao hàng miễn phí <span>Thứ Hai, 13/10</span></p>
+                    <div class="prod-buttons">
+                        <button class="add-cart" onclick="addToCart(6)">Thêm vào giỏ hàng</button>
+                        <button class="detail-btn" onclick="showDetail(6)">Chi tiết</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SP 7: Balo laptop chống nước -->
+            <div class="product-item" data-price="550000" data-rating="5">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=300&fit=crop" alt="Giày Bata" />
+                <div class="item-info">
+                    <h4 onclick="showDetail(7)">Giày hút nước đi dễ trượt chân</h4>
+                    <div class="stars">⭐⭐⭐⭐⭐ 4.890</div>
+                    <p class="price"><strong>550.000đ</strong> <del>650.000đ</del></p>
+                    <p class="ship">Giao hàng miễn phí <span>Thứ Tư, 15/10</span></p>
+                    <div class="prod-buttons">
+                        <button class="add-cart" onclick="addToCart(7)">Thêm vào giỏ hàng</button>
+                        <button class="detail-btn" onclick="showDetail(7)">Chi tiết</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SP 8: Túi da thật cao cấp nhập khẩu -->
+            <div class="product-item" data-price="799000" data-rating="5">
+                <img src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=300&h=300&fit=crop" alt="Túi xách nữ da cao cấp" />
+                <div class="item-info">
+                    <h4 onclick="showDetail(😎">Túi xách real</h4>
+                    <div class="stars">⭐⭐⭐⭐⭐ 1.230</div>
+                    <p class="price"><strong>799.000đ</strong></p>
+                    <p class="ship">Giao hàng miễn phí <span>Thứ Hai, 13/10</span></p>
+                    <div class="prod-buttons">
+                        <button class="add-cart" onclick="addToCart(😎">Thêm vào giỏ hàng</button>
+                        <button class="detail-btn" onclick="showDetail(😎">Chi tiết</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SP 9: Vali kéo du lịch cứng -->
+            <div class="product-item" data-price="890000" data-rating="4">
+                <img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=300&h=300&fit=crop" alt="Túi xách da hồng nam tính" />
+                <div class="item-info">
+                    <h4 onclick="showDetail(9)">Túi xách da màu hồng nam tính</h4>
+                    <div class="stars">⭐⭐⭐⭐☆ 980</div>
+                    <p class="price"><strong>890.000đ</strong> <del>1.100.000đ</del></p>
+                    <p class="ship">Giao hàng miễn phí <span>Thứ Năm, 16/10</span></p>
+                    <div class="prod-buttons">
+                        <button class="add-cart" onclick="addToCart(9)">Thêm vào giỏ hàng</button>
+                        <button class="detail-btn" onclick="showDetail(9)">Chi tiết</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SP 10: Balo leo núi 40L -->
+            <div class="product-item" data-price="950000" data-rating="5">
+                <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=300&fit=crop" alt="Balo leo núi " />
+                <div class="item-info">
+                    <h4 onclick="showDetail(10)">Balo leo núi dành cho người già</h4>
+                    <div class="stars">⭐⭐⭐⭐⭐ 670</div>
+                    <p class="price"><strong>950.000đ</strong></p>
+                    <p class="ship">Giao hàng miễn phí <span>Thứ Ba, 14/10</span></p>
+                    <div class="prod-buttons">
+                        <button class="add-cart" onclick="addToCart(10)">Thêm vào giỏ hàng</button>
+                        <button class="detail-btn" onclick="showDetail(10)">Chi tiết</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<!-- Modal Chi tiết -->
+<div id="detailModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeDetail()">&times;</span>
+        <div id="detailBody"></div>
+    </div>
+</div>
+
+<!-- Modal Giỏ hàng -->
+<div id="cartModal" class="modal" style="display:none;">
+    <div class="modal-content cart-content">
+        <span class="close-btn" onclick="closeCart()">&times;</span>
+        <h2>Giỏ hàng của bạn</h2>
+        <div id="cartItems"></div>
+        <div class="cart-total"><strong>Tổng tiền: <span id="cartTotal">0đ</span></strong></div>
+        <button class="checkout-btn">Tiến hành đặt hàng</button>
+    </div>
+</div>
+
+<script>
+    const products = {
+        1: { name: "Túi xách nữ da tổng hợp kiểu dáng thanh lịch", price: 299000, oldPrice: 350000, img: "https://images.unsplash.com/photo-1548036328-eac38a683ce7?w=400&h=400&fit=crop", desc: "Chất liệu da tổng hợp cao cấp, khóa kim loại sang trọng, nhiều ngăn tiện dụng.", rating: "⭐⭐⭐⭐☆ 2.548", stock: "Còn hàng" },
+        2: { name: "Túi xách công sở nam da thật đựng máy tính 15.6 inch", price: 450000, oldPrice: 0, img: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=400&h=400&fit=crop", desc: "Da thật bền đẹp, ngăn chuyên dụng đựng laptop 15.6 inch.", rating: "⭐⭐⭐⭐☆ 1.820", stock: "Còn hàng" },
+        3: { name: "Balo du lịch chống sốc nhiều ngăn thông minh", price: 399000, oldPrice: 500000, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop", desc: "Chất liệu Polyester chống nước, lớp đệm EVA chống sốc.", rating: "⭐⭐⭐⭐⭐ 5.230", stock: "Còn hàng" },
+        4: { name: "Túi xách nữ cao cấp da bò nhập khẩu khóa kim loại sang trọng", price: 699000, oldPrice: 0, img: "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=400&h=400&fit=crop", desc: "Da bò nguyên tấm nhập khẩu, khóa kim loại mạ vàng.", rating: "⭐⭐⭐⭐⭐ 856", stock: "Còn hàng" },
+        5: { name: "Túi xách nữ nhỏ gọn thời trang phong cách Hàn Quốc", price: 199000, oldPrice: 250000, img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=400&fit=crop", desc: "Kiểu dáng nhỏ xinh, phối đồ dễ dàng, nhiều màu sắc.", rating: "⭐⭐⭐⭐☆ 3.120", stock: "Còn hàng" },
+        6: { name: "Túi xách da tổng hợp nhiều màu sắc trẻ trung năng động", price: 350000, oldPrice: 0, img: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&h=400&fit=crop", desc: "Da tổng hợp mềm mại, thiết kế hiện đại, 5 màu lựa chọn.", rating: "⭐⭐⭐⭐☆ 2.450", stock: "Còn hàng" },
+        7: { name: "Balo laptop chống nước nhiều ngăn tiện dụng", price: 550000, oldPrice: 650000, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop", desc: "Lớp phủ chống nước, lớp đệm bảo vệ máy tính.", rating: "⭐⭐⭐⭐⭐ 4.890", stock: "Còn hàng" },
+        8: { name: "Túi xách da thật cao cấp nhập khẩu kiểu dáng châu Âu", price: 799000, oldPrice: 0, img: "https://images.unsplash.com/photo-1548036328-eac38a683ce7?w=400&h=400&fit=crop", desc: "Da bò nhập khẩu Ý, thiết kế theo xu hướng châu Âu.", rating: "⭐⭐⭐⭐⭐ 1.230", stock: "Chỉ còn 5 sản phẩm" },
+        9: { name: "Vali kéo du lịch cứng chống va đập khóa bảo mật", price: 890000, oldPrice: 1100000, img: "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=400&h=400&fit=crop", desc: "Vỏ nhựa PC cứng, bánh xe xoay 360 độ, khóa tổ hợp bảo mật.", rating: "⭐⭐⭐⭐☆ 980", stock: "Còn hàng" },
+        10: { name: "Balo leo núi 40L thoải mái chịu nước khung nhôm", price: 950000, oldPrice: 0, img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop", desc: "Dây đai phân bố áp lực, khung nhôm hỗ trợ lưng, chống nước cao cấp.", rating: "⭐⭐⭐⭐⭐ 670", stock: "Còn hàng" }
+    };
+
+    let cart = [];
+
+    function updatePriceSlider() {
+        let min = +document.getElementById('priceMin').value, max = +document.getElementById('priceMax').value;
+        if (min > max) [min, max] = [max, min];
+        document.getElementById('minPriceLabel').textContent = min.toLocaleString('vi-VN') + 'đ';
+        document.getElementById('maxPriceLabel').textContent = max.toLocaleString('vi-VN') + 'đ';
+    }
+
+    function applyPriceFilter() {
+        let min = +document.getElementById('priceMin').value, max = +document.getElementById('priceMax').value;
+        if (min > max) [min, max] = [max, min];
+        document.querySelectorAll('.product-item').forEach(sp => {
+            sp.style.display = (+sp.dataset.price >= min && +sp.dataset.price <= max) ? 'flex' : 'none';
+        });
+        updateResultCount();
+    }
+
+    function locGia(min, max) {
+        document.querySelectorAll('.product-item').forEach(sp => {
+            sp.style.display = (+sp.dataset.price >= min && +sp.dataset.price < max) ? 'flex' : 'none';
+        });
+        updateResultCount();
+    }
+
+    function hienTatCa() {
+        document.querySelectorAll('.product-item').forEach(sp => sp.style.display = 'flex');
+        document.getElementById('priceMin').value = 0;
+        document.getElementById('priceMax').value = 1000000;
+        updatePriceSlider();
+        updateResultCount();
+    }
+
+    function updateResultCount() {
+        const visible = Array.from(document.querySelectorAll('.product-item')).filter(el => el.style.display !== 'none').length;
+        document.getElementById('resultCount').textContent = 1–${ visible } trong tổng số ${ visible } kết quả;
+    }
+
+    function sortProducts() {
+        const val = document.getElementById('sortSelect').value;
+        const grid = document.getElementById('productGrid');
+        const items = Array.from(grid.children);
+        items.sort((a, b) => {
+            if (val === 'price-asc') return +a.dataset.price - +b.dataset.price;
+            if (val === 'price-desc') return +b.dataset.price - +a.dataset.price;
+            if (val === 'rating') return +b.dataset.rating - +a.dataset.rating;
+            return 0;
+        });
+        grid.innerHTML = '';
+        items.forEach(i => grid.appendChild(i));
+    }
+
+    function showDetail(id) {
+        const p = products[id];
+        document.getElementById('detailBody').innerHTML = `
+        <div class="detail-wrap">
+            <img src="${p.img}" alt="${p.name}" class="detail-img" />
+            <div class="detail-info">
+                <h2>${p.name}</h2>
+                <div class="detail-rating">${p.rating}</div>
+                <p class="detail-price"><strong>${p.price.toLocaleString('vi-VN')}đ</strong>${p.oldPrice > 0 ? `<del>${p.oldPrice.toLocaleString('vi-VN')}đ</del>` : ''}</p>
+                <p class="detail-stock">${p.stock}</p>
+                <p class="detail-desc">${p.desc}</p>
+                <div class="detail-qty">
+                    <label>Số lượng:</label>
+                    <button onclick="changeQty(-1)">-</button>
+                    <input type="number" id="qtyInput" value="1" min="1" />
+                    <button onclick="changeQty(1)">+</button>
+                </div>
+                <button class="add-cart-large" onclick="addToCartFromDetail(${id})">Thêm vào giỏ hàng</button>
+            </div>
+        </div>`;
+        document.getElementById('detailModal').style.display = 'flex';
+    }
+
+    function closeDetail() { document.getElementById('detailModal').style.display = 'none'; }
+    function changeQty(n) {
+        const input = document.getElementById('qtyInput');
+        input.value = Math.max(1, +input.value + n);
+    }
+
+    function addToCart(id) {
+        const p = products[id];
+        const idx = cart.findIndex(i => i.id === id);
+        idx >= 0 ? cart[idx].qty++ : cart.push({ id, name: p.name, price: p.price, img: p.img, qty: 1 });
+        updateCartIcon();
+        alert('Đã thêm vào giỏ hàng!');
+    }
+
+    function addToCartFromDetail(id) {
+        const qty = +document.getElementById('qtyInput').value;
+        const p = products[id];
+        const idx = cart.findIndex(i => i.id === id);
+        idx >= 0 ? cart[idx].qty += qty : cart.push({ id, name: p.name, price: p.price, img: p.img, qty });
+        closeDetail();
+        updateCartIcon();
+        alert('Đã thêm vào giỏ hàng!');
+    }
+
+    function updateCartIcon() {
+        document.querySelector('.cart-count').textContent = cart.reduce((s, i) => s + i.qty, 0);
+    }
+
+    function openCart() { renderCart(); document.getElementById('cartModal').style.display = 'flex'; }
+    function closeCart() { document.getElementById('cartModal').style.display = 'none'; }
+
+    function renderCart() {
+        const container = document.getElementById('cartItems');
+        if (cart.length === 0) {
+            container.innerHTML = '<p class="empty-cart">Giỏ hàng trống</p>';
+            document.getElementById('cartTotal').textContent = '0đ';
+            return;
+        }
+        container.innerHTML = cart.map(item => `
+        <div class="cart-item">
+            <img src="${item.img}" width="60" height="60" alt="" />
+            <div class="cart-item-info">
+                <h4>${item.name}</h4>
+                <p>${item.price.toLocaleString('vi-VN')}đ x ${item.qty} = <strong>${(item.price * item.qty).toLocaleString('vi-VN')}đ</strong></p>
+            </div>
+            <button class="remove-btn" onclick="removeFromCart(${item.id})">Xóa</button>
+        </div>`).join('');
+        const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+        document.getElementById('cartTotal').textContent = total.toLocaleString('vi-VN') + 'đ';
+    }
+
+    function removeFromCart(id) {
+        cart = cart.filter(i => i.id !== id);
+        updateCartIcon();
+        renderCart();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const cartLink = document.querySelector('.cart');
+        if (cartLink) cartLink.onclick = e => { e.preventDefault(); openCart(); };
+    });
+
+    window.onclick = e => {
+        if (e.target.classList.contains('modal')) e.target.style.display = 'none';
+    };
+</script>

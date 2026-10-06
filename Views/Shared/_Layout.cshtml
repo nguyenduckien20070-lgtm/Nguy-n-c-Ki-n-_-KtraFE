@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amazon Shop</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+    <!-- CSS Chính -->
+    <link rel="stylesheet" href="~/Content/style.css" />
+</head>
+<body>
+    <!-- ===== HEADER ===== -->
+    <header class="amazon-header">
+        <div class="header-top">
+            <a href="/" class="logo">amazon</a>
+
+            <div class="location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>TP.HCM</span>
+            </div>
+
+            <div class="search-box">
+                <select class="search-cat">
+                    <option>Tất cả</option>
+                    <option>Thời trang</option>
+                    <option>Điện tử</option>
+                </select>
+                <input type="text" class="search-input" placeholder="Tìm kiếm..." />
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+
+            <div class="header-actions">
+                <div class="lang">
+                    <img src="https://flagcdn.com/w20/vn.png" alt="VN" />
+                    <span>VN</span>
+                    <i class="fas fa-caret-down"></i>
+                </div>
+                <div class="account">
+                    <span>Xin chào, Đăng nhập</span>
+                    <strong>Tài khoản & Danh sách <i class="fas fa-caret-down"></i></strong>
+                </div>
+                <div class="orders">
+                    <span>Trả hàng</span>
+                    <strong>& Đơn hàng</strong>
+                </div>
+                <a href="#" class="cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                    <span>Giỏ hàng</span>
+                </a>
+            </div>
+        </div>
+
+        <nav class="nav-bar">
+            <a href="#"><i class="fas fa-bars"></i> Tất cả</a>
+            <a href="#">Hôm nay giảm giá</a>
+            <a href="#">Thời trang nữ</a>
+            <a href="#">Thời trang nam</a>
+            <a href="#">Điện tử</a>
+            <a href="#">Nhà cửa & Đời sống</a>
+            <a href="#">Thể thao & Du lịch</a>
+        </nav>
+    </header>
+
+    <!-- ===== NỘI DUNG CHÍNH ===== -->
+    <main class="main-content">
+        @RenderBody()
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="amazon-footer">
+        <div class="back-top" onclick="window.scrollTo({top:0})">Quay lại đầu trang</div>
+        <div class="footer-wrap">
+            <div class="footer-col">
+                <h4>Về Amazon</h4>
+                <ul>
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Tuyển dụng</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Dịch vụ</h4>
+                <ul>
+                    <li><a href="#">Bán hàng</a></li>
+                    <li><a href="#">Vận chuyển</a></li>
+                    <li><a href="#">Thanh toán</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Hỗ trợ</h4>
+                <ul>
+                    <li><a href="#">Trung tâm trợ giúp</a></li>
+                    <li><a href="#">Chính sách</a></li>
+                    <li><a href="#">Bảo mật</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Kết nối</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Zalo</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">© 2025 Amazon Clone. Dự án học tập.</div>
+    </footer>
+</body>
+</html>
